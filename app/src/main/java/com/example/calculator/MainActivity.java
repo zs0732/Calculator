@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     EditText eT;
     double result =0;
-    int oper = 0; // 1: +, 2: -,
+    int oper = 0; // 1: +, 2: -, 3: *, 4: /
     double AC, AC2;
     String temp;
     double num1, num2;
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2: num1 = num1 - num2;
                         break;
+                    case 4: num1 = num1 / num2;
+                        break;
                 }
             }
             eT.setHint(""+num1);
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void btnMinus (View view){  //btn2
+    public void btnMinus (View view){
         temp = eT.getText().toString();
         if (check(temp)){
             if (oper == 0) {
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                     case 2: num1 = num1 - num2;
                     break;
+                    case 4: num1 = num1 / num2;
+                        break;
                 }
             }
             eT.setHint(""+num1);
@@ -74,8 +78,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void division (View view){  //btn3
-
+    public void btnDiv (View view){
+        temp = eT.getText().toString();
+        if (check(temp)){
+            if (oper == 0) {
+                num1 = Double.parseDouble(temp);
+            } else {
+                num2 = Double.parseDouble(temp);
+                switch (oper) {
+                    case 1: num1 = num1 + num2;
+                        break;
+                    case 2: num1 = num1 - num2;
+                        break;
+                    case 4: num1 = num1 / num2;
+                        break;
+                }
+            }
+            eT.setHint(""+num1);
+            eT.setText("");
+            oper = 4;
+        } else {
+            Toast.makeText(this, "Wrong input", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void multiplication (View view){  //btn4
@@ -88,15 +112,34 @@ public class MainActivity extends AppCompatActivity {
         eT.setText("");
     }
 
-    public void equal (View view){  //btn6
-
+    public void btnEqual (View view){  //btn6
+        temp = eT.getText().toString();
+        if (check(temp)){
+            if (oper == 0) {
+                num1 = Double.parseDouble(temp);
+            } else {
+                num2 = Double.parseDouble(temp);
+                switch (oper) {
+                    case 1: num1 = num1 + num2;
+                        break;
+                    case 2: num1 = num1 - num2;
+                        break;
+                    case 4: num1 = num1 / num2;
+                        break;
+                }
+            }
+            eT.setText(""+num1);
+            oper = 0;
+        } else {
+            Toast.makeText(this, "Wrong input", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void credits (View view){  //btn7
+    public void credits (View view){
 
     }
     public static boolean check(String st){
-        if ((st == " ") || (st == "-") || (st==".") || (st == "-.")) {
+        if ((st == "") || (st == " ") || (st == "-") || (st==".") || (st == "-.")) {
             return false;
         }
         return true;
